@@ -24,7 +24,7 @@
     "type": "git"
   },
   "scripts": {
-    "build": "spago make-module",
+    "build": "spago build",
     "docs": "spago docs",
     "prepare": "npm run build",
     "purs": "purs",
