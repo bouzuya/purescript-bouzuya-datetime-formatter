@@ -5,7 +5,7 @@ You can edit this file as you like.
 { name =
     "bouzuya-datetime-formatter"
 , dependencies =
-    [ "bouzuya-datetime", "effect", "formatters", "psci-support", "test-unit" ]
+    [ "bouzuya-datetime", "formatters", "psci-support", "test-unit" ]
 , packages =
     ./packages.dhall
 }
