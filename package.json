@@ -1,7 +1,7 @@
 {
   "name": "purescript-bouzuya-datetime-formatter",
   "description": "`Bouzuya.DateTime.Formatter` module",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "author": {
     "url": "https://bouzuya.net/",
     "name": "bouzuya",
