@@ -3,9 +3,9 @@ module Test.Main where
 import Prelude
 
 import Effect (Effect)
-import Effect.Console (log)
+import Test.Bouzuya.DateTime.Formatter.TimeZoneOffset as TimeZoneOffsetFormatter
+import Test.Unit.Main as TestUnitMain
 
 main :: Effect Unit
-main = do
-  log "🍝"
-  log "You should add some tests."
+main = TestUnitMain.runTest do
+  TimeZoneOffsetFormatter.tests
