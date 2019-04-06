@@ -33,7 +33,7 @@ fromString s = do
   minutesString <- join (Array.index matches 3)
   let
     sign :: forall a. Ring a => a -> a
-    sign = if signString == "+" then identity else negate
+    sign = if signString == "+" then negate else identity
   hours <- Int.fromString hoursString
   MonadZero.guard (between 0 23 hours)
   minutes <- Int.fromString minutesString
@@ -52,7 +52,7 @@ toString timeZoneOffset
         minutes = ((Ord.abs offset) `mod` 60)
       in
         Array.fold
-          [ if offset > 0 then "+" else "-"
+          [ if offset < 0 then "+" else "-"
           , (if hours < 10 then "0" else "") <> show hours
           , ":"
           , (if minutes < 10 then "0" else "") <> show minutes
