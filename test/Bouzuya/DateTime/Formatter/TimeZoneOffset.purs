@@ -8,45 +8,34 @@ import Bouzuya.DateTime.Formatter.TimeZoneOffset as TimeZoneOffsetFormatter
 import Bouzuya.DateTime.TimeZoneOffset as TimeZoneOffset
 import Data.Maybe as Maybe
 import Data.Time.Duration as TimeDuration
+import Partial.Unsafe as Unsafe
 import Test.Unit (TestSuite)
 import Test.Unit as TestUnit
 import Test.Unit.Assert as Assert
 
 tests :: TestSuite
 tests = TestUnit.suite "Bouzuya.DateTime.Formatter.TimeZoneOffset" do
-  TestUnit.test "fromString / toString" do
+  let
+    timeZoneOffsetUTC = TimeZoneOffset.utc
+    timeZoneOffsetUTCString = "Z"
+    timeZoneOffsetJST =
+      Unsafe.unsafePartial
+        (Maybe.fromJust
+          (TimeZoneOffset.fromDuration (TimeDuration.Hours (-9.0))))
+    timeZoneOffsetJSTString = "+09:00"
+
+  TestUnit.test "fromString" do
     Assert.equal
-      (Maybe.Just "Z")
-      (map
-        TimeZoneOffsetFormatter.toString
-        (TimeZoneOffsetFormatter.fromString "Z"))
+      (Maybe.Just timeZoneOffsetUTC)
+      (TimeZoneOffsetFormatter.fromString timeZoneOffsetUTCString)
     Assert.equal
-      (Maybe.Just "+09:00")
-      (map
-        TimeZoneOffsetFormatter.toString
-        (TimeZoneOffsetFormatter.fromString "+09:00"))
+      (Maybe.Just timeZoneOffsetJST)
+      (TimeZoneOffsetFormatter.fromString timeZoneOffsetJSTString)
+
+  TestUnit.test "toString" do
     Assert.equal
-      (Maybe.Just "-09:30")
-      (map
-        TimeZoneOffsetFormatter.toString
-        (TimeZoneOffsetFormatter.fromString "-09:30"))
+      timeZoneOffsetUTCString
+      (TimeZoneOffsetFormatter.toString timeZoneOffsetUTC)
     Assert.equal
-      (Maybe.Just "+09:00")
-      (map
-        TimeZoneOffsetFormatter.toString
-        (TimeZoneOffset.fromDuration (TimeDuration.Hours (-9.0))))
-    Assert.equal
-      (Maybe.Just "+09:00")
-      (map
-        TimeZoneOffsetFormatter.toString
-        (TimeZoneOffset.fromDuration (TimeDuration.Minutes (-540.0))))
-    Assert.equal
-      (Maybe.Just true)
-      ((==)
-        <$> (TimeZoneOffsetFormatter.fromString "+09:00")
-        <*> (TimeZoneOffsetFormatter.fromString "+09:00"))
-    Assert.equal
-      (Maybe.Just true)
-      ((<)
-        <$> (TimeZoneOffsetFormatter.fromString "+09:00")
-        <*> (TimeZoneOffsetFormatter.fromString "-09:00"))
+      timeZoneOffsetJSTString
+      (TimeZoneOffsetFormatter.toString timeZoneOffsetJST)
