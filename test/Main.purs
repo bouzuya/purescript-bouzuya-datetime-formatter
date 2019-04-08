@@ -9,6 +9,7 @@ import Test.Bouzuya.DateTime.Formatter.OffsetDateTime as OffsetDateTimeFormatter
 import Test.Bouzuya.DateTime.Formatter.OrdinalDate as OrdinalDateFormatter
 import Test.Bouzuya.DateTime.Formatter.Time as TimeFormatter
 import Test.Bouzuya.DateTime.Formatter.TimeZoneOffset as TimeZoneOffsetFormatter
+import Test.Bouzuya.DateTime.Formatter.WeekDate as WeekDateFormatter
 import Test.Unit.Main as TestUnitMain
 
 main :: Effect Unit
@@ -19,3 +20,4 @@ main = TestUnitMain.runTest do
   OrdinalDateFormatter.tests
   TimeFormatter.tests
   TimeZoneOffsetFormatter.tests
+  WeekDateFormatter.tests
